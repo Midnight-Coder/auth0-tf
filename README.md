@@ -1,2 +1,2 @@
 # oath
-Terraform repository
+Terraform repository to programmatically setup systems
