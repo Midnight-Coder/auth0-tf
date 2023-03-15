@@ -8,6 +8,9 @@
 # Crash log files
 crash.log
 
+# Ignore lock files
+*.lock.hcl
+
 # Most .tfvars files are managed as part of configuration. They should be included in version control.
 # Ignore the ones created manually for local runs
 auth0/environments/*/local.auto.tfvars

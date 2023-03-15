@@ -17,6 +17,14 @@ variable "management_api_identifier" {
   type        = string
 }
 
+# Branding
+variable "logo_uri" {
+  description = "Logo URI"
+  type        = string
+  default     = "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOSQPB5R_VgjWQa4lQrsI-_oLmutRxAnPuVx6qPVhsSd8Q7KiVjsf2yd2qChKezz_07Aw0g27rivDyclwgxXf7f1NbX5mw=w2560-h762"
+}
+
+
 # Azul
 variable "azul_id_token_expiration" {
   description = "Id Token Expiration Time"
@@ -58,13 +66,6 @@ variable "azul_web_origins" {
   description = "Allowed Web Origins"
   type        = list(string)
   default     = ["https://localhost:6040", "http://localhost:6040"]
-}
-
-variable "azul_logo_uri" {
-  description = "Logo URI"
-  type        = string
-  default     = "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOSQPB5R_VgjWQa4lQrsI-_oLmutRxAnPuVx6qPVhsSd8Q7KiVjsf2yd2qChKezz_07Aw0g27rivDyclwgxXf7f1NbX5mw=w2560-h762"
-
 }
 
 # Uno
@@ -113,14 +114,6 @@ variable "uno_web_origins" {
   ]
 }
 
-variable "uno_logo_uri" {
-  description = "Logo URI"
-  type        = string
-  default     = "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOSQPB5R_VgjWQa4lQrsI-_oLmutRxAnPuVx6qPVhsSd8Q7KiVjsf2yd2qChKezz_07Aw0g27rivDyclwgxXf7f1NbX5mw=w2560-h762"
-
-}
-
-
 # Jenga
 variable "jenga_api_identifier" {
   description = "Jenga Api Identifier"
@@ -150,9 +143,4 @@ variable "senet_token_lifetime" {
   description = "Senet Token Lifetime"
   type        = number
   default     = 86400
-}
-variable "senet_web_token_lifetime" {
-  description = "Senet Web Token Lifetime"
-  type        = number
-  default     = 7200
 }

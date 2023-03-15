@@ -1,6 +1,14 @@
+/*
+TODO:
+1. branding: 
+    1. email provider = send grid
+    2. email template
+    3. Change password template (universal login)
+2. organization: "headlamp"
+*/
 ### BRANDING
 resource "auth0_branding" "headlamp_brand" {
-  logo_url = "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOSQPB5R_VgjWQa4lQrsI-_oLmutRxAnPuVx6qPVhsSd8Q7KiVjsf2yd2qChKezz_07Aw0g27rivDyclwgxXf7f1NbX5mw=w2560-h762"
+  logo_url = var.logo_uri
 
   colors {
     primary         = "#247AB2"
@@ -60,7 +68,7 @@ resource "auth0_client" "azul-provider-console" {
   allowed_logout_urls        = var.azul_logouts
   web_origins                = var.azul_web_origins
   custom_login_page_on       = false
-  logo_uri                   = var.azul_logo_uri
+  logo_uri                   = var.logo_uri
   is_first_party             = true
   grant_types = [
     "implicit",
@@ -98,7 +106,7 @@ resource "auth0_client" "uno-patient-mobile-app" {
   allowed_logout_urls        = var.uno_logouts
   web_origins                = var.uno_web_origins
   custom_login_page_on       = false
-  logo_uri                   = var.uno_logo_uri
+  logo_uri                   = var.logo_uri
   is_first_party             = true
   grant_types = [
     "implicit",
@@ -159,14 +167,13 @@ resource "auth0_resource_server" "senet-resource-server" {
   token_dialect                                   = "access_token_authz"
   enforce_policies                                = true
   token_lifetime                                  = var.senet_token_lifetime
-  token_lifetime_for_web                          = var.senet_web_token_lifetime
 }
 
 
 ### REGISTER ACTIONS
 resource "auth0_action" "add_patient_id_provider_id" {
   name    = "Add Patient and Provide ID"
-  runtime = "node18"
+  runtime = "node16"
   deploy  = true
   code    = <<-EOT
 /**
@@ -226,7 +233,7 @@ resource "auth0_trigger_binding" "post_login_flow" {
 
 resource "auth0_action" "send_signup_email" {
   name    = "Send Set Password Email On Signup"
-  runtime = "node18"
+  runtime = "node16"
   deploy  = true
   code    = <<-EOT
 /**
@@ -256,6 +263,11 @@ exports.onExecutePostUserRegistration = async (event, api) => {
     version = "v2"
   }
 
+  dependencies {
+    name    = "auth0"
+    version = "3.2.0"
+  }
+
 }
 
 resource "auth0_trigger_binding" "post_signup_flow" {
@@ -269,7 +281,7 @@ resource "auth0_trigger_binding" "post_signup_flow" {
 
 resource "auth0_action" "update_user_metadata_post_signup" {
   name    = "Reset is_signup on user metadata"
-  runtime = "node18"
+  runtime = "node16"
   deploy  = true
   code    = <<-EOT
 /**
@@ -299,6 +311,11 @@ exports.onExecutePostChangePassword = async (event, api) => {
   supported_triggers {
     id      = "post-change-password"
     version = "v2"
+  }
+
+  dependencies {
+    name    = "auth0"
+    version = "3.2.0"
   }
 
   secrets {
