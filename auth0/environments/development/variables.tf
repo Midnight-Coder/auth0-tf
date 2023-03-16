@@ -24,6 +24,22 @@ variable "logo_uri" {
   default     = "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOSQPB5R_VgjWQa4lQrsI-_oLmutRxAnPuVx6qPVhsSd8Q7KiVjsf2yd2qChKezz_07Aw0g27rivDyclwgxXf7f1NbX5mw=w2560-h762"
 }
 
+variable "primary_color" {
+  description = "Primary Brand Color"
+  type        = string
+  default     = "#247AB2"
+}
+
+variable "email_from" {
+  description = "Email address to use as the sender"
+  type = string
+  default = "Headlamp Health <no_reply@headlamp.com>"
+}
+
+variable "sendgrid_key" {
+  descdescription = "API Key For Sendgrid"
+  type = string  
+}
 
 # Azul
 variable "azul_id_token_expiration" {
