@@ -32,13 +32,13 @@ variable "primary_color" {
 
 variable "email_from" {
   description = "Email address to use as the sender"
-  type = string
-  default = "Headlamp Health <no_reply@headlamp.com>"
+  type        = string
+  default     = "Headlamp Health <no_reply@headlamp.com>"
 }
 
 variable "sendgrid_key" {
   description = "API Key For Sendgrid"
-  type = string  
+  type        = string
 }
 
 # Azul

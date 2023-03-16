@@ -19,12 +19,14 @@ resource "auth0_email" "sendgrid_email_provider" {
 }
 
 resource "auth0_email_template" "change_password" {
-  depends_on = [auth0_email.sendgrid_email_provider]
-   syntax                  = "liquid"
-   enabled                 = true
-   url_lifetime_in_seconds = 86400
-   subject = "{% if user.app_metadata.is_signup == true %} {% if user.user_metadata.provider_id %} Headlamp account activation {% else %} Invite from {{ user.user_metadata.provider.name }} {%endif%} {% else %} Reset your password {% endif %}"
-   body = <<EOT
+  depends_on              = [auth0_email.sendgrid_email_provider]
+  from                    = var.email_from
+  template                = "change_password"
+  syntax                  = "liquid"
+  enabled                 = true
+  url_lifetime_in_seconds = 86400
+  subject                 = "{% if user.app_metadata.is_signup == true %} {% if user.user_metadata.provider_id %} Headlamp account activation {% else %} Invite from {{ user.user_metadata.provider.name }} {%endif%} {% else %} Reset your password {% endif %}"
+  body                    = <<-EOT
 {%if user.app_metadata.is_signup == true %}
  {%if user.user_metadata.provider_id %}
 	<html>
@@ -254,21 +256,13 @@ resource "auth0_email_template" "change_password" {
   </body>
 </html>
 {% endif %}
-   EOT
+  EOT
 }
 
 ### ORGANIZATIONS
-resource "auth0_organization" "headlamp_default_org" {
-  name         = "Headlamp"
+resource "auth0_organization" "default_org" {
+  name         = "headlamp"
   display_name = "Headlamp Health Inc."
-
-  branding {
-    logo_url = var.logo_uri
-    colors = {
-      primary         = var.primary_color
-      page_background = "#FFFFFF"
-    }
-  }
 }
 
 ### AUTHENTICATION CONFIGS
@@ -277,12 +271,16 @@ resource "auth0_connection" "default_username_password_auth" {
   is_domain_connection = true
   strategy             = "auth0"
   options {
-    password_policy                = "excellent"
     brute_force_protection         = true
-    enabled_database_customization = true
-    import_mode                    = false
-    requires_username              = true
     disable_signup                 = false
+    enabled_database_customization = false
+    from                           = var.email_from
+    import_mode                    = false
+    password_no_personal_info = {
+      enable = true
+    }
+    password_policy   = "excellent"
+    requires_username = false
   }
 }
 
@@ -430,7 +428,7 @@ resource "auth0_action" "add_patient_id_provider_id" {
   name    = "Add Patient and Provide ID"
   runtime = "node16"
   deploy  = true
-  code    = <<-EOT
+  code    = <<EOT
 /**
 * Handler that will be called during the execution of a PostLogin flow.
 *
