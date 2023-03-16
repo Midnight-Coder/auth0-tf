@@ -72,7 +72,7 @@ resource "auth0_email_template" "change_password" {
               <p>
                 <a href="{{ url }}isSignUp=true&source=provider">
                 <button style="font-size: 15px; color: white; background: #33739D; box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12); border-radius: 4px; width: 237px; height: 42px; border: 0px;">ACTIVATE YOUR ACCOUNT</button>
-                </a>  
+                </a>
                 <br /><br />
                 <hr style="border: 1px dashed #EAEEF3; border-bottom: 0; margin: 20px 0;" />
               <br />
@@ -267,7 +267,25 @@ resource "auth0_organization" "default_org" {
 
 ### AUTHENTICATION CONFIGS
 resource "auth0_connection" "default_username_password_auth" {
-  name                 = "headlamp-sign-in"
+  name                 = "provider_signup"
+  is_domain_connection = true
+  strategy             = "auth0"
+  options {
+    brute_force_protection         = true
+    disable_signup                 = false
+    enabled_database_customization = false
+    from                           = var.email_from
+    import_mode                    = false
+    password_no_personal_info = {
+      enable = true
+    }
+    password_policy   = "excellent"
+    requires_username = false
+  }
+}
+
+resource "auth0_connection" "default_username_password_auth" {
+  name                 = "patient_signup"
   is_domain_connection = true
   strategy             = "auth0"
   options {
