@@ -428,7 +428,7 @@ resource "auth0_action" "add_patient_id_provider_id" {
   name    = "Add Patient and Provide ID"
   runtime = "node16"
   deploy  = true
-  code    = <<EOT
+  code    = <<-EOT
 /**
 * Handler that will be called during the execution of a PostLogin flow.
 *
