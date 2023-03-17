@@ -266,8 +266,8 @@ resource "auth0_organization" "default_org" {
 }
 
 ### AUTHENTICATION CONFIGS
-resource "auth0_connection" "default_username_password_auth" {
-  name                 = "provider_signup"
+resource "auth0_connection" "provider-authentication" {
+  name                 = "provider-authentication"
   is_domain_connection = true
   strategy             = "auth0"
   options {
@@ -276,16 +276,13 @@ resource "auth0_connection" "default_username_password_auth" {
     enabled_database_customization = false
     from                           = var.email_from
     import_mode                    = false
-    password_no_personal_info = {
-      enable = true
-    }
-    password_policy   = "excellent"
-    requires_username = false
+    password_policy                = "excellent"
+    requires_username              = false
   }
 }
 
-resource "auth0_connection" "default_username_password_auth" {
-  name                 = "patient_signup"
+resource "auth0_connection" "patient-authentication" {
+  name                 = "patient-authentication"
   is_domain_connection = true
   strategy             = "auth0"
   options {
@@ -294,11 +291,8 @@ resource "auth0_connection" "default_username_password_auth" {
     enabled_database_customization = false
     from                           = var.email_from
     import_mode                    = false
-    password_no_personal_info = {
-      enable = true
-    }
-    password_policy   = "excellent"
-    requires_username = false
+    password_policy                = "excellent"
+    requires_username              = false
   }
 }
 
@@ -440,6 +434,24 @@ resource "auth0_resource_server" "senet-resource-server" {
   token_lifetime                                  = var.senet_token_lifetime
 }
 
+### CONNECTION <> CLIENTS
+resource "auth0_connection_client" "azul-provider-authentication" {
+  connection_id = auth0_connection.provider-authentication.id
+  client_id     = auth0_client.azul-provider-console.id
+  depends_on = [
+    auth0_connection.provider-authentication,
+    auth0_client.azul-provider-console
+  ]
+}
+
+resource "auth0_connection_client" "uno-patient-authentication" {
+  connection_id = auth0_connection.patient-authentication.id
+  client_id     = auth0_client.uno-patient-mobile-app.id
+  depends_on = [
+    auth0_connection.patient-authentication,
+    auth0_client.uno-patient-mobile-app
+  ]
+}
 
 ### REGISTER ACTIONS
 resource "auth0_action" "add_patient_id_provider_id" {
