@@ -63,25 +63,25 @@ variable "azul_idle_token_lifetime" {
 variable "azul_login_uri" {
   description = "Custom Login URI"
   type        = string
-  default     = "https://provider.demo.headlamp.com/auth/login"
+  default     = "https://provider.development.headlamp.com/auth/login"
 }
 
 variable "azul_callbacks" {
   description = "Allowed Callback URLs"
   type        = list(string)
-  default     = ["https://provider.demo.headlamp.com/auth/landing-pad"]
+  default     = ["https://provider.development.headlamp.com/auth/landing-pad"]
 }
 
 variable "azul_logouts" {
   description = "Allowed Logout URLs"
   type        = list(string)
-  default     = ["https://provider.demo.headlamp.com/auth/login"]
+  default     = ["https://provider.development.headlamp.com/auth/login"]
 }
 
 variable "azul_web_origins" {
   description = "Allowed Web Origins"
   type        = list(string)
-  default     = ["https://provider.demo.headlamp.com"]
+  default     = ["https://provider.development.headlamp.com"]
 }
 
 # Uno
@@ -107,8 +107,8 @@ variable "uno_callbacks" {
   description = "Allowed Callback URLs"
   type        = list(string)
   default = [
-    "org.reactjs.native.example.uno://demo-headlamp.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
-    "com.uno://demo-headlamp.us.auth0.com/android/com.uno/callback"
+    "org.reactjs.native.example.uno://production-headlamp.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
+    "com.uno://production-headlamp.us.auth0.com/android/com.uno/callback"
   ]
 }
 
@@ -116,8 +116,8 @@ variable "uno_logouts" {
   description = "Allowed Logout URLs"
   type        = list(string)
   default = [
-    "org.reactjs.native.example.uno://demo-headlamp.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
-    "com.uno://demo-headlamp.us.auth0.com/android/com.uno/callback"
+    "org.reactjs.native.example.uno://production-headlamp.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
+    "com.uno://production-headlamp.us.auth0.com/android/com.uno/callback"
   ]
 }
 
@@ -125,8 +125,8 @@ variable "uno_web_origins" {
   description = "Allowed Web Origins"
   type        = list(string)
   default = [
-    "org.reactjs.native.example.uno://demo-headlamp.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
-    "com.uno://demo-headlamp.us.auth0.com/android/com.uno/callback"
+    "org.reactjs.native.example.uno://production-headlamp.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
+    "com.uno://production-headlamp.us.auth0.com/android/com.uno/callback"
   ]
 }
 

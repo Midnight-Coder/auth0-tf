@@ -63,7 +63,7 @@ variable "azul_idle_token_lifetime" {
 variable "azul_login_uri" {
   description = "Custom Login URI"
   type        = string
-  default     = "https://provider.development.headlamp.com/auth/login"
+  default     = "https://localhost:6040/auth/login"
 }
 
 variable "azul_callbacks" {
