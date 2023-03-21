@@ -160,3 +160,25 @@ variable "senet_token_lifetime" {
   type        = number
   default     = 86400
 }
+
+# Codenames: User Management API
+variable "codenames_api_identifier" {
+  description = "Codenames Api Identifier"
+  type        = string
+  default     = "https://localhost:5060"
+}
+
+variable "codenames_scopes" {
+  description = "Codenames Permissions"
+  type        = list(string)
+  default = [
+    "read:clients",
+    "read:connections",
+    "read:roles",
+    "read:users", "create:users", "delete:users",
+    "read:organizations", "create:organizations", "read:organization_members", "create:organization_members",
+    "read:organization_connections", "create:organization_connections", "update:organization_connections",
+    "read:organization_invitations", "create:organization_invitations",
+    "read:organization_member_roles", "create:organization_member_roles"
+  ]
+}

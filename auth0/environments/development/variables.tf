@@ -63,25 +63,25 @@ variable "azul_idle_token_lifetime" {
 variable "azul_login_uri" {
   description = "Custom Login URI"
   type        = string
-  default     = "https://localhost:6040/auth/login"
+  default     = "https://provider.demo.headlamp.com/auth/login"
 }
 
 variable "azul_callbacks" {
   description = "Allowed Callback URLs"
   type        = list(string)
-  default     = ["https://localhost:6040/auth/landing-pad", "http://localhost:6040/auth/landing-pad"]
+  default     = ["https://provider.demo.headlamp.com/auth/landing-pad"]
 }
 
 variable "azul_logouts" {
   description = "Allowed Logout URLs"
   type        = list(string)
-  default     = ["https://localhost:6040/auth/login", "http://localhost:6040/auth/login"]
+  default     = ["https://provider.demo.headlamp.com/auth/login"]
 }
 
 variable "azul_web_origins" {
   description = "Allowed Web Origins"
   type        = list(string)
-  default     = ["https://localhost:6040", "http://localhost:6040"]
+  default     = ["https://provider.demo.headlamp.com"]
 }
 
 # Uno
@@ -107,8 +107,8 @@ variable "uno_callbacks" {
   description = "Allowed Callback URLs"
   type        = list(string)
   default = [
-    "org.reactjs.native.example.uno://dev-datakeep-io.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
-    "com.uno://dev-datakeep-io.us.auth0.com/android/com.uno/callback"
+    "org.reactjs.native.example.uno://demo-headlamp.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
+    "com.uno://demo-headlamp.us.auth0.com/android/com.uno/callback"
   ]
 }
 
@@ -116,8 +116,8 @@ variable "uno_logouts" {
   description = "Allowed Logout URLs"
   type        = list(string)
   default = [
-    "org.reactjs.native.example.uno://dev-datakeep-io.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
-    "com.uno://dev-datakeep-io.us.auth0.com/android/com.uno/callback"
+    "org.reactjs.native.example.uno://demo-headlamp.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
+    "com.uno://demo-headlamp.us.auth0.com/android/com.uno/callback"
   ]
 }
 
@@ -125,8 +125,8 @@ variable "uno_web_origins" {
   description = "Allowed Web Origins"
   type        = list(string)
   default = [
-    "org.reactjs.native.example.uno://dev-datakeep-io.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
-    "com.uno://dev-datakeep-io.us.auth0.com/android/com.uno/callback"
+    "org.reactjs.native.example.uno://demo-headlamp.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
+    "com.uno://demo-headlamp.us.auth0.com/android/com.uno/callback"
   ]
 }
 
@@ -159,4 +159,26 @@ variable "senet_token_lifetime" {
   description = "Senet Token Lifetime"
   type        = number
   default     = 86400
+}
+
+# Codenames: User Management API
+variable "codenames_api_identifier" {
+  description = "Codenames Api Identifier"
+  type        = string
+  default     = "https://localhost:5060"
+}
+
+variable "codenames_scopes" {
+  description = "Codenames Permissions"
+  type        = list(string)
+  default = [
+    "read:clients",
+    "read:connections",
+    "read:roles",
+    "read:users", "create:users", "delete:users",
+    "read:organizations", "create:organizations", "read:organization_members", "create:organization_members",
+    "read:organization_connections", "create:organization_connections", "update:organization_connections",
+    "read:organization_invitations", "create:organization_invitations",
+    "read:organization_member_roles", "create:organization_member_roles"
+  ]
 }
