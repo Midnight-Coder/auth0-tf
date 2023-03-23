@@ -17,6 +17,11 @@ variable "management_api_identifier" {
   type        = string
 }
 
+variable "auth0_uno_client_id" {
+  description = "Auth0 Uno Client ID"
+  type = string
+}
+
 # Branding
 variable "logo_uri" {
   description = "Logo URI"
