@@ -367,8 +367,6 @@ resource "auth0_client" "uno-patient-mobile-app" {
   app_type                   = "native"
   oidc_conformant            = true
   token_endpoint_auth_method = "none"
-  callbacks                  = var.uno_callbacks
-  allowed_logout_urls        = var.uno_logouts
   web_origins                = var.uno_web_origins
   custom_login_page_on       = false
   logo_uri                   = var.logo_uri

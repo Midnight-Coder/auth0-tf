@@ -17,23 +17,25 @@ variable "management_api_identifier" {
   type        = string
 }
 
+variable "domain" {
+  description = "Web Domain Address (without trailing slash. e.g. https://provider.demo.headlamp.com)"
+  type        = string
+}
+
 # Branding
 variable "logo_uri" {
   description = "Logo URI"
   type        = string
-  default     = "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOSQPB5R_VgjWQa4lQrsI-_oLmutRxAnPuVx6qPVhsSd8Q7KiVjsf2yd2qChKezz_07Aw0g27rivDyclwgxXf7f1NbX5mw=w2560-h762"
 }
 
 variable "primary_color" {
   description = "Primary Brand Color"
   type        = string
-  default     = "#247AB2"
 }
 
 variable "email_from" {
   description = "Email address to use as the sender"
   type        = string
-  default     = "Headlamp Health <no_reply@headlamp.com>"
 }
 
 variable "sendgrid_key" {
@@ -63,25 +65,25 @@ variable "azul_idle_token_lifetime" {
 variable "azul_login_uri" {
   description = "Custom Login URI"
   type        = string
-  default     = "https://provider.demo.headlamp.com/auth/login"
+  default = join("", var.domain, "/auth/login")
 }
 
 variable "azul_callbacks" {
   description = "Allowed Callback URLs"
   type        = list(string)
-  default     = ["https://provider.demo.headlamp.com/auth/landing-pad"]
+  default = [join("", var.domain, "/auth/landing-pad")]
 }
 
 variable "azul_logouts" {
   description = "Allowed Logout URLs"
   type        = list(string)
-  default     = ["https://provider.demo.headlamp.com/auth/login"]
+  default = [join("", var.domain, "/auth/logout")]
 }
 
 variable "azul_web_origins" {
   description = "Allowed Web Origins"
   type        = list(string)
-  default     = ["https://provider.demo.headlamp.com"]
+  default = [var.domain]
 }
 
 # Uno
@@ -103,30 +105,12 @@ variable "uno_idle_token_lifetime" {
   default     = 1296000
 }
 
-variable "uno_callbacks" {
-  description = "Allowed Callback URLs"
-  type        = list(string)
-  default = [
-    "org.reactjs.native.example.uno://demo-headlamp.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
-    "com.uno://demo-headlamp.us.auth0.com/android/com.uno/callback"
-  ]
-}
-
-variable "uno_logouts" {
-  description = "Allowed Logout URLs"
-  type        = list(string)
-  default = [
-    "org.reactjs.native.example.uno://demo-headlamp.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
-    "com.uno://demo-headlamp.us.auth0.com/android/com.uno/callback"
-  ]
-}
-
 variable "uno_web_origins" {
   description = "Allowed Web Origins"
   type        = list(string)
   default = [
-    "org.reactjs.native.example.uno://demo-headlamp.us.auth0.com/ios/org.reactjs.native.example.uno/callback",
-    "com.uno://demo-headlamp.us.auth0.com/android/com.uno/callback"
+    join("", "org.reactjs.native.example.uno://", var.auth0_domain, "/ios/org.reactjs.native.example.uno/callback"),
+    join("", "com.uno://", var.auth0_domain, "/android/com.uno/callback"),
   ]
 }
 
