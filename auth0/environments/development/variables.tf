@@ -65,25 +65,25 @@ variable "azul_idle_token_lifetime" {
 variable "azul_login_uri" {
   description = "Custom Login URI"
   type        = string
-  default = join("", var.domain, "/auth/login")
+  default     = join("", var.domain, "/auth/login")
 }
 
 variable "azul_callbacks" {
   description = "Allowed Callback URLs"
   type        = list(string)
-  default = [join("", var.domain, "/auth/landing-pad")]
+  default     = [join("", var.domain, "/auth/landing-pad")]
 }
 
 variable "azul_logouts" {
   description = "Allowed Logout URLs"
   type        = list(string)
-  default = [join("", var.domain, "/auth/logout")]
+  default     = [join("", var.domain, "/auth/logout")]
 }
 
 variable "azul_web_origins" {
   description = "Allowed Web Origins"
   type        = list(string)
-  default = [var.domain]
+  default     = [var.domain]
 }
 
 # Uno

@@ -435,11 +435,11 @@ resource "auth0_resource_server" "senet-resource-server" {
 }
 
 resource "auth0_resource_server" "codenames-user-management" {
-  name            = "Codenames Management Client"
+  name       = "Codenames Management Client"
   identifier = var.codenames_api_identifier
 
   dynamic "scopes" {
-    for_each  = var.codenames_scopes
+    for_each = var.codenames_scopes
     content {
       value = scopes.value
     }
@@ -450,13 +450,13 @@ resource "auth0_resource_server" "codenames-user-management" {
 resource "auth0_client_grant" "codenames-jenga-grant" {
   client_id = auth0_client.jenga-gateway.client_id
   audience  = auth0_resource_server.codenames-user-management.identifier
-  scope    = var.codenames_scopes
+  scope     = var.codenames_scopes
 }
 
 resource "auth0_client_grant" "codenames-senet-grant" {
   client_id = auth0_client.senet-gateway.client_id
   audience  = auth0_resource_server.codenames-user-management.identifier
-  scope    = var.codenames_scopes
+  scope     = var.codenames_scopes
 }
 
 ### CONNECTION <> CLIENTS
