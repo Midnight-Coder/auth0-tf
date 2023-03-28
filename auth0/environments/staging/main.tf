@@ -399,6 +399,14 @@ resource "auth0_client" "uno-patient-mobile-app" {
 
 }
 
+data "auth0_client" "uno_patient_mobile_app" {
+  name = "Headlamp Health App"
+}
+
+data "auth0_client" "management_api_app" {
+  name = "Terraform Connection"
+}
+
 resource "auth0_client" "jenga-gateway" {
   name            = "Jenga API Gateway"
   description     = "API Gateway for Azul (Provider Webapp)"

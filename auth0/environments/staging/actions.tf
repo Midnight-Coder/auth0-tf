@@ -17,7 +17,7 @@ const keys = {
   'isLinked': 'is_linked',
   version: 'version'
 };
-const currentVersion = '1.0.0';
+const currentVersion = '1.1.0';
 
 function removeNonNumericAndPlusCharacters(input) {
   return input.replace(/[^0-9+]/g, "");
@@ -115,7 +115,7 @@ exports.onExecutePostUserRegistration = async (event, api) => {
 
   secrets {
     name  = "AUTH0_CLIENT_ID"
-    value = var.auth0_client_id
+    value = data.auth0_client.management_api_app.client_id
   }
 
 }
@@ -179,12 +179,12 @@ exports.onExecutePostChangePassword = async (event, api) => {
 
   secrets {
     name  = "AUTH0_CLIENT_ID"
-    value = var.auth0_client_id
+    value = data.auth0_client.management_api_app.client_id
   }
 
   secrets {
     name  = "AUTH0_CLIENT_SECRET"
-    value = var.auth0_client_secret
+    value = data.auth0_client.management_api_app.client_secret
   }
   
   secrets {
@@ -230,7 +230,7 @@ exports.onExecutePostLogin = async (event, api) => {
     if (event.user.phone_number && event.connection.name === 'sms') {
       const user = await auth0.getUsers({
         search_engine: 'v3',
-        q: `user_metadata.contact:"${event.user.phone_number}"`,
+        q: `user_metadata.contact:"$${event.user.phone_number}"`,
         per_page: 1,
         page: 0
       })
@@ -282,12 +282,12 @@ exports.onExecutePostLogin = async (event, api) => {
 
   secrets {
     name  = "AUTH0_CLIENT_ID"
-    value = var.auth0_client_id
+    value = data.auth0_client.management_api_app.client_id
   }
 
   secrets {
     name  = "AUTH0_CLIENT_SECRET"
-    value = var.auth0_client_secret
+    value = data.auth0_client.management_api_app.client_secret
   }
   
   secrets {
@@ -297,7 +297,7 @@ exports.onExecutePostLogin = async (event, api) => {
 
   secrets {
     name = "AUTH0_UNO_CLIENT_ID"
-    value = var.auth0_uno_client_id
+    value = data.auth0_client.uno_patient_mobile_app.client_id
   }
 
 }
