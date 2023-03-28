@@ -1,4 +1,4 @@
-auth0_domain = "staging-headlamp.us.auth0.com"
+auth0_domain = "demo-headlamp.us.auth0.com"
 
 domain = "https://provider.demo.headlamp.com"
 
@@ -7,5 +7,3 @@ logo_uri = "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOSQPB5R_VgjW
 primary_color = "#247AB2"
 
 email_from = "Headlamp Health <no_reply@headlamp.com>"
-
-senet_api_identifier = "https://app.demo.headlamp.com"

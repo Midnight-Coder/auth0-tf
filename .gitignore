@@ -13,7 +13,7 @@ crash.log
 
 # Most .tfvars files are managed as part of configuration. They should be included in version control.
 # Ignore the ones created manually for local runs
-auth0/environments/*/local.auto.tfvars
+auth0/environments/*/secret.auto.tfvars
 
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
