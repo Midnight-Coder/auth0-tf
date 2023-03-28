@@ -84,7 +84,7 @@ exports.onExecutePostUserRegistration = async (event, api) => {
     email: event.user.email,
     connection: 'Username-Password-Authentication'
   };
-  auth0.requestChangePasswordEmail(userAndConnection);
+  // auth0.requestChangePasswordEmail(userAndConnection);
 };
 
     EOT
