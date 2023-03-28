@@ -1,4 +1,4 @@
-auth0_domain = "production-headlamp.us.auth0.com"
+auth0_domain = "dev-datakeep-io.us.auth0.com"
 
 domain = "localhost:6040"
 
