@@ -17,6 +17,11 @@ variable "management_api_identifier" {
   type        = string
 }
 
+variable "management_api_id" {
+  description = "Management API Id"
+  type        = string
+}
+
 variable "domain" {
   description = "Web Domain Address (without trailing slash. e.g. https://provider.demo.headlamp.com)"
   type        = string
@@ -62,30 +67,6 @@ variable "azul_idle_token_lifetime" {
   default     = 5400
 }
 
-variable "azul_login_uri" {
-  description = "Custom Login URI"
-  type        = string
-  default     = join("", var.domain, "/auth/login")
-}
-
-variable "azul_callbacks" {
-  description = "Allowed Callback URLs"
-  type        = list(string)
-  default     = [join("", var.domain, "/auth/landing-pad")]
-}
-
-variable "azul_logouts" {
-  description = "Allowed Logout URLs"
-  type        = list(string)
-  default     = [join("", var.domain, "/auth/logout")]
-}
-
-variable "azul_web_origins" {
-  description = "Allowed Web Origins"
-  type        = list(string)
-  default     = [var.domain]
-}
-
 # Uno
 variable "uno_id_token_expiration" {
   description = "Id Token Expiration Time"
@@ -105,22 +86,7 @@ variable "uno_idle_token_lifetime" {
   default     = 1296000
 }
 
-variable "uno_web_origins" {
-  description = "Allowed Web Origins"
-  type        = list(string)
-  default = [
-    join("", "org.reactjs.native.example.uno://", var.auth0_domain, "/ios/org.reactjs.native.example.uno/callback"),
-    join("", "com.uno://", var.auth0_domain, "/android/com.uno/callback"),
-  ]
-}
-
 # Jenga
-variable "jenga_api_identifier" {
-  description = "Jenga Api Identifier"
-  type        = string
-  default     = "https://localhost:5050"
-}
-
 variable "jenga_token_lifetime" {
   description = "Jenga Token Lifetime"
   type        = number
@@ -133,11 +99,6 @@ variable "jenga_web_token_lifetime" {
 }
 
 # Senet
-variable "senet_api_identifier" {
-  description = "Senet Api Identifier"
-  type        = string
-}
-
 variable "senet_token_lifetime" {
   description = "Senet Token Lifetime"
   type        = number
@@ -145,12 +106,6 @@ variable "senet_token_lifetime" {
 }
 
 # Codenames: User Management API
-variable "codenames_api_identifier" {
-  description = "Codenames Api Identifier"
-  type        = string
-  default     = var.domain
-}
-
 variable "codenames_scopes" {
   description = "Codenames Permissions"
   type        = list(string)

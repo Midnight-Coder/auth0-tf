@@ -10,7 +10,7 @@ terraform {
     organization = "headlamp"
 
     workspaces {
-      name = "auth0"
+      name = "production"
     }
   }
 }

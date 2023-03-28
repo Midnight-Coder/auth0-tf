@@ -7,5 +7,3 @@ logo_uri = "https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEOSQPB5R_VgjW
 primary_color = "#247AB2"
 
 email_from = "Headlamp Health <no_reply@headlamp.com>"
-
-senet_api_identifier = "https://app.development.headlamp.com"
