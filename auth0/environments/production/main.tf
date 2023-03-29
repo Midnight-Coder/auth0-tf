@@ -283,7 +283,7 @@ resource "auth0_connection" "provider-authentication" {
 
 resource "auth0_connection" "patient-authentication" {
   name                 = "patient-authentication"
-  is_domain_connection = true
+  is_domain_connection = false
   strategy             = "auth0"
   options {
     brute_force_protection         = true
@@ -296,107 +296,23 @@ resource "auth0_connection" "patient-authentication" {
   }
 }
 
-### SECURITY CONFIGS
-resource "auth0_attack_protection" "sensible_defaults" {
-  suspicious_ip_throttling {
-    enabled = true
-    shields = ["admin_notification", "block"]
-  }
-  brute_force_protection {
-    enabled      = true
-    max_attempts = 10
-    mode         = "count_per_identifier"
-    shields      = ["user_notification", "block"]
-  }
-
-  breached_password_detection {
-    admin_notification_frequency = ["daily"]
-    enabled                      = true
-    method                       = "standard"
-    shields                      = ["admin_notification", "block"]
-
-    pre_user_registration {
-      shields = ["block"]
-    }
-  }
+### CLIENT <> RESOURCE SERVER GRANTS
+resource "auth0_client_grant" "codenames-jenga-grant" {
+  client_id = auth0_client.jenga-gateway.client_id
+  audience  = auth0_resource_server.codenames-user-management.identifier
+  scope     = var.codenames_scopes
 }
 
-### REGISTER CLIENTS
-resource "auth0_client" "azul-provider-console" {
-  name                       = "Headlamp Health"
-  description                = "Headlamp Console For Providers"
-  app_type                   = "spa"
-  oidc_conformant            = true
-  token_endpoint_auth_method = "none"
-  initiate_login_uri         = var.azul_login_uri
-  callbacks                  = var.azul_callbacks
-  allowed_logout_urls        = var.azul_logouts
-  web_origins                = var.azul_web_origins
-  custom_login_page_on       = false
-  logo_uri                   = var.logo_uri
-  is_first_party             = true
-  grant_types = [
-    "implicit",
-    "password",
-    "refresh_token",
-    "authorization_code",
-  ]
-
-  organization_usage = "deny"
-
-  refresh_token {
-    expiration_type              = "expiring"
-    rotation_type                = "rotating"
-    infinite_idle_token_lifetime = false
-    infinite_token_lifetime      = false
-    leeway                       = 0
-    token_lifetime               = var.azul_token_lifetime
-    idle_token_lifetime          = var.azul_idle_token_lifetime
-
-  }
-
-  jwt_configuration {
-    alg                 = "RS256"
-    lifetime_in_seconds = var.azul_id_token_expiration
-  }
+resource "auth0_client_grant" "codenames-senet-grant" {
+  client_id = auth0_client.senet-gateway.client_id
+  audience  = auth0_resource_server.codenames-user-management.identifier
+  scope     = var.codenames_scopes
 }
 
-resource "auth0_client" "uno-patient-mobile-app" {
-  name                       = "Headlamp Health App"
-  description                = "Headlamp App For Patients"
-  app_type                   = "native"
-  oidc_conformant            = true
-  token_endpoint_auth_method = "none"
-  callbacks                  = var.uno_callbacks
-  allowed_logout_urls        = var.uno_logouts
-  web_origins                = var.uno_web_origins
-  custom_login_page_on       = false
-  logo_uri                   = var.logo_uri
-  is_first_party             = true
-  grant_types = [
-    "implicit",
-    "password",
-    "refresh_token",
-    "authorization_code",
-  ]
-  organization_usage = "deny"
-
-  refresh_token {
-    expiration_type              = "expiring"
-    rotation_type                = "rotating"
-    infinite_idle_token_lifetime = false
-    infinite_token_lifetime      = false
-    leeway                       = 0
-    token_lifetime               = var.uno_token_lifetime
-    idle_token_lifetime          = var.uno_idle_token_lifetime
-
-  }
-
-  jwt_configuration {
-    alg                 = "RS256"
-    lifetime_in_seconds = var.uno_id_token_expiration
-  }
-
+resource "auth0_client_grant" "codenames_grant" {
+  client_id = auth0_client.codenames-client.client_id
+  audience  = var.management_api_identifier
+  scope     = var.codenames_scopes
 }
 
 data "auth0_client" "uno_patient_mobile_app" {

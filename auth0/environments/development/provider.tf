@@ -11,7 +11,7 @@ terraform {
     organization = "Headlamp-Health"
 
     workspaces {
-      name = "auth0-development"
+      name = "development"
     }
   }
 }
