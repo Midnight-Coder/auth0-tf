@@ -315,6 +315,48 @@ resource "auth0_client_grant" "codenames_grant" {
   scope     = var.codenames_scopes
 }
 
+data "auth0_client" "uno_patient_mobile_app" {
+  name = "Headlamp Health App"
+}
+
+data "auth0_client" "management_api_app" {
+  name = "Terraform Connection"
+}
+
+resource "auth0_client" "jenga-gateway" {
+  name            = "Jenga API Gateway"
+  description     = "API Gateway for Azul (Provider Webapp)"
+  app_type        = "non_interactive"
+  oidc_conformant = true
+  is_first_party  = true
+}
+
+resource "auth0_resource_server" "jenga-resource-server" {
+  name                                            = "Jenga Resource Server"
+  identifier                                      = var.jenga_api_identifier
+  skip_consent_for_verifiable_first_party_clients = true
+  token_dialect                                   = "access_token_authz"
+  enforce_policies                                = true
+  token_lifetime                                  = var.jenga_token_lifetime
+  token_lifetime_for_web                          = var.jenga_web_token_lifetime
+}
+
+resource "auth0_client" "senet-gateway" {
+  name            = "Senet API Gateway"
+  description     = "API Gateway for Uno (Patient Mobile App)"
+  app_type        = "non_interactive"
+  oidc_conformant = true
+  is_first_party  = true
+}
+
+resource "auth0_resource_server" "senet-resource-server" {
+  name                                            = "Senet Resource Server"
+  identifier                                      = var.senet_api_identifier
+  skip_consent_for_verifiable_first_party_clients = true
+  token_dialect                                   = "access_token_authz"
+  enforce_policies                                = true
+  token_lifetime                                  = var.senet_token_lifetime
+}
 
 ### CONNECTION <> CLIENTS
 resource "auth0_connection_client" "azul-provider-authentication" {

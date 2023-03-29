@@ -4,7 +4,7 @@ Setting up Auth0:
 
 2. Create Auth0 Tenant
 
-3. Delete Username-Password Databases (Auth0 --> Authentication)
+3. Delete Username-Password Databases (Auth0 --> Authentication --> Database)
 
 4. Delete Social Connection (Auth0 --> Authentication)
 
