@@ -6,12 +6,11 @@ terraform {
     }
   }
 
-  backend "remote" {
-    hostname     = "app.terraform.io"
-    organization = "Headlamp-Health"
+  cloud {
+    organization = "headlamp"
 
     workspaces {
-      name = "development"
+      name = "production"
     }
   }
 }
