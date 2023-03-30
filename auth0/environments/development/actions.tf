@@ -236,7 +236,7 @@ exports.onExecutePostLogin = async (event, api) => {
             provider,
             connection_id: event.connection.id
           });
-        } catch (e) { 
+        } catch (e) {
           console.log("error in linking", e);
         }
       }
@@ -257,7 +257,7 @@ exports.onExecutePostLogin = async (event, api) => {
 // exports.onContinuePostLogin = async (event, api) => {
 // };
 
-  EOT 
+  EOT
 
   supported_triggers {
     id      = "post-login"
