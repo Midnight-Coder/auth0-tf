@@ -159,4 +159,3 @@ resource "auth0_resource_server" "codenames-user-management" {
     }
   }
 }
-
