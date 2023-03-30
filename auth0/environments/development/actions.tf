@@ -17,7 +17,7 @@ const keys = {
   'isLinked': 'is_linked',
   version: 'version'
 };
-const currentVersion = '1.1.0';
+const currentVersion = '1.1.1';
 
 function removeNonNumericAndPlusCharacters(input) {
   return input.replace(/[^0-9+]/g, "");
@@ -115,7 +115,7 @@ exports.onExecutePostUserRegistration = async (event, api) => {
 
   secrets {
     name  = "AUTH0_CLIENT_ID"
-    value = data.auth0_client.management_api_app.client_id
+    value = auth0_client.codenames-client.client_id
   }
 
 }
@@ -148,7 +148,6 @@ exports.onExecutePostChangePassword = async (event, api) => {
     domain: event.secrets.AUTH0_DOMAIN,
     clientId: event.secrets.AUTH0_CLIENT_ID,
     clientSecret: event.secrets.AUTH0_CLIENT_SECRET,
-    audience: event.secrets.AUTH0_AUDIENCE,
     tokenProvider: {
       enableCache: true,
       cacheTTLInSeconds: 10,
@@ -179,17 +178,12 @@ exports.onExecutePostChangePassword = async (event, api) => {
 
   secrets {
     name  = "AUTH0_CLIENT_ID"
-    value = data.auth0_client.management_api_app.client_id
+    value = auth0_client.codenames-client.client_id
   }
 
   secrets {
     name  = "AUTH0_CLIENT_SECRET"
-    value = data.auth0_client.management_api_app.client_secret
-  }
-  
-  secrets {
-    name  = "AUTH0_AUDIENCE"
-    value = var.management_api_identifier
+    value = auth0_client.codenames-client.client_secret
   }
 }
 
@@ -203,9 +197,10 @@ resource "auth0_trigger_binding" "post_change_password_flow" {
 }
 
 resource "auth0_action" "link_related_accounts" {
-  name = "Link related accounts"
+  name    = "Link related accounts"
   runtime = "node16"
-  deploy = <<-EOT
+  deploy  = true
+  code    = <<-EOT
 /**
 * Handler that will be called during the execution of a PostLogin flow.
 *
@@ -220,7 +215,6 @@ exports.onExecutePostLogin = async (event, api) => {
     domain: event.secrets.AUTH0_DOMAIN,
     clientId: event.secrets.AUTH0_CLIENT_ID,
     clientSecret: event.secrets.AUTH0_CLIENT_SECRET,
-    audience: event.secrets.AUTH0_CLIENT_AUDIENCE,
     tokenProvider: {
       enableCache: true,
       cacheTTLInSeconds: 10,
@@ -242,7 +236,7 @@ exports.onExecutePostLogin = async (event, api) => {
             provider,
             connection_id: event.connection.id
           });
-        } catch (e) { 
+        } catch (e) {
           console.log("error in linking", e);
         }
       }
@@ -263,15 +257,15 @@ exports.onExecutePostLogin = async (event, api) => {
 // exports.onContinuePostLogin = async (event, api) => {
 // };
 
-  EOT 
+  EOT
 
   supported_triggers {
-    id = "post-login"
+    id      = "post-login"
     version = "v3"
   }
 
   dependencies {
-    name = "auth0"
+    name    = "auth0"
     version = "3.2.0"
   }
 
@@ -282,22 +276,17 @@ exports.onExecutePostLogin = async (event, api) => {
 
   secrets {
     name  = "AUTH0_CLIENT_ID"
-    value = data.auth0_client.management_api_app.client_id
+    value = auth0_client.codenames-client.client_id
   }
 
   secrets {
     name  = "AUTH0_CLIENT_SECRET"
-    value = data.auth0_client.management_api_app.client_secret
-  }
-  
-  secrets {
-    name  = "AUTH0_AUDIENCE"
-    value = var.management_api_identifier
+    value = auth0_client.codenames-client.client_secret
   }
 
   secrets {
-    name = "AUTH0_UNO_CLIENT_ID"
-    value = data.auth0_client.uno_patient_mobile_app.client_id
+    name  = "AUTH0_UNO_CLIENT_ID"
+    value = auth0_client.uno-patient-mobile-app.client_id
   }
 
 }

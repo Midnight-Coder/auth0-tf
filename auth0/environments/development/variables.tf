@@ -52,26 +52,26 @@ variable "sendgrid_key" {
 variable "azul_id_token_expiration" {
   description = "Id Token Expiration Time"
   type        = number
-  default     = 1800
+  default     = 86400
 }
 
 variable "azul_token_lifetime" {
   description = "Absolute Token Lifetime"
   type        = number
-  default     = 28800
+  default     = 86400
 }
 
 variable "azul_idle_token_lifetime" {
   description = "Idle Token Lifetime"
   type        = number
-  default     = 5400
+  default     = 86400
 }
 
 # Uno
 variable "uno_id_token_expiration" {
   description = "Id Token Expiration Time"
   type        = number
-  default     = 36000
+  default     = 86400
 }
 
 variable "uno_token_lifetime" {
@@ -95,7 +95,7 @@ variable "jenga_token_lifetime" {
 variable "jenga_web_token_lifetime" {
   description = "Jenga Web Token Lifetime"
   type        = number
-  default     = 7200
+  default     = 86400
 }
 
 # Senet
