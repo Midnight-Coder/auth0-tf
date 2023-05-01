@@ -56,7 +56,7 @@ resource "auth0_email_template" "change_password" {
           >
             <div class="main">
               <p>
-                <img src="https://lh3.google.com/u/0/d/1-XFV0v_P_OeUeriu31pg8ylj1gghePoc=w3840-h2002-iv3" width="250" alt="Your logo goes here" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 100%;outline: none;text-decoration: none;">
+                <img src="https://res.cloudinary.com/diyfx2bz3/image/upload/v1681148827/Mobile%20icons/iOS%20app%20icons/Icon-512_ehmfw5.png" width="250" alt="Your logo goes here" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 100%;outline: none;text-decoration: none;">
                </p>
               <hr style="border: 1px solid #EAEEF3; border-bottom: 0; margin: 20px 0;" />
               <br />
@@ -130,7 +130,7 @@ resource "auth0_email_template" "change_password" {
           >
             <div class="main">
               <p style="text-align: center;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%; margin-bottom: 30px;">
-                <img src="https://lh3.google.com/u/0/d/1-XFV0v_P_OeUeriu31pg8ylj1gghePoc=w3840-h2002-iv3" width="250" alt="Your logo goes here" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 100%;outline: none;text-decoration: none;">
+                <img src="https://res.cloudinary.com/diyfx2bz3/image/upload/v1681148827/Mobile%20icons/iOS%20app%20icons/Icon-512_ehmfw5.png" width="250" alt="Your logo goes here" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 100%;outline: none;text-decoration: none;">
               </p>
 
               <p>Hello {{user.name}},</p>
@@ -207,7 +207,7 @@ resource "auth0_email_template" "change_password" {
           >
             <div class="main">
               <p style="text-align: center;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%; margin-bottom: 30px;">
-                <img src="https://lh3.google.com/u/0/d/1-XFV0v_P_OeUeriu31pg8ylj1gghePoc=w3840-h2002-iv3" width="250" alt="Your logo goes here" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 100%;outline: none;text-decoration: none;">
+                <img src="https://res.cloudinary.com/diyfx2bz3/image/upload/v1681148827/Mobile%20icons/iOS%20app%20icons/Icon-512_ehmfw5.png" width="250" alt="Your logo goes here" style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 100%;outline: none;text-decoration: none;">
               </p>
 
               <p>Hello {{user.name}},</p>
