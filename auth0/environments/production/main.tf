@@ -4,6 +4,12 @@ resource "auth0_organization" "default_org" {
   display_name = "Headlamp Health Inc."
 }
 
+### ROLE
+resource "auth0_role" "administrator" {
+  name        = "administrator"
+  description = "Administrator"
+}
+
 ### AUTHENTICATION CONFIGS
 resource "auth0_connection" "provider-authentication" {
   name                 = "provider-authentication"
@@ -11,7 +17,7 @@ resource "auth0_connection" "provider-authentication" {
   strategy             = "auth0"
   options {
     brute_force_protection         = true
-    disable_signup                 = false
+    disable_signup                 = true
     enabled_database_customization = false
     from                           = var.email_from
     import_mode                    = false
@@ -26,7 +32,7 @@ resource "auth0_connection" "patient-authentication" {
   strategy             = "auth0"
   options {
     brute_force_protection         = true
-    disable_signup                 = false
+    disable_signup                 = true
     enabled_database_customization = false
     from                           = var.email_from
     import_mode                    = false
