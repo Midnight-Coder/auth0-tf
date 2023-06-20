@@ -8,10 +8,10 @@ terraform {
 
   backend "remote" {
     hostname     = "app.terraform.io"
-    organization = "Headlamp-Health"
+    organization = "super-cmo"
 
     workspaces {
-      name = "development"
+      name = "dev"
     }
   }
 }

@@ -1,7 +1,7 @@
 ### ORGANIZATIONS
 resource "auth0_organization" "default_org" {
-  name         = "headlamp"
-  display_name = "Headlamp Health Inc."
+  name         = "supercmo"
+  display_name = "Super CMO"
 }
 
 ### ROLE

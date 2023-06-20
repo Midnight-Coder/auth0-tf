@@ -1,9 +1,7 @@
-auth0_domain = "dev-datakeep-io.us.auth0.com"
+auth0_domain = "dev-super-cmo.us.auth0.com"
 
-domain = "localhost:6040"
+domain = "localhost:6041"
 
-logo_uri = "https://res.cloudinary.com/diyfx2bz3/image/upload/v1681148827/Mobile%20icons/iOS%20app%20icons/Icon-512_ehmfw5.png"
+logo_uri = "https://res.cloudinary.com/dkrf8wto1/image/upload/v1687293337/logo/sa5axctroq4rynxobjoz.svg"
 
-primary_color = "#247AB2"
-
-email_from = "Headlamp Health <no_reply@headlamp.com>"
+primary_color = "#FF5722"

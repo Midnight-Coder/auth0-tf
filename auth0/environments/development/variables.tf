@@ -23,7 +23,7 @@ variable "management_api_id" {
 }
 
 variable "domain" {
-  description = "Web Domain Address (without trailing slash. e.g. https://provider.demo.headlamp.com)"
+  description = "Web Domain Address (without trailing slash. e.g. https://app.supercmo.com)"
   type        = string
 }
 
@@ -38,85 +38,33 @@ variable "primary_color" {
   type        = string
 }
 
-variable "email_from" {
-  description = "Email address to use as the sender"
-  type        = string
-}
-
-variable "sendgrid_key" {
-  description = "API Key For Sendgrid"
-  type        = string
-}
-
-# Azul
-variable "azul_id_token_expiration" {
+# Webapp
+variable "gogo_id_token_expiration" {
   description = "Id Token Expiration Time"
   type        = number
   default     = 86400
 }
 
-variable "azul_token_lifetime" {
+variable "gogo_token_lifetime" {
   description = "Absolute Token Lifetime"
   type        = number
   default     = 86400
 }
 
-variable "azul_idle_token_lifetime" {
+variable "gogo_idle_token_lifetime" {
   description = "Idle Token Lifetime"
   type        = number
   default     = 86400
 }
 
-# Uno
-variable "uno_id_token_expiration" {
-  description = "Id Token Expiration Time"
+# API-Gateway
+variable "mogambo_token_lifetime" {
+  description = "Mogambo Token Lifetime"
   type        = number
   default     = 86400
 }
-
-variable "uno_token_lifetime" {
-  description = "Absolute Token Lifetime"
-  type        = number
-  default     = 2592000
-}
-
-variable "uno_idle_token_lifetime" {
-  description = "Idle Token Lifetime"
-  type        = number
-  default     = 1296000
-}
-
-# Jenga
-variable "jenga_token_lifetime" {
-  description = "Jenga Token Lifetime"
+variable "mogambo_web_token_lifetime" {
+  description = "mogambo Web Token Lifetime"
   type        = number
   default     = 86400
-}
-variable "jenga_web_token_lifetime" {
-  description = "Jenga Web Token Lifetime"
-  type        = number
-  default     = 86400
-}
-
-# Senet
-variable "senet_token_lifetime" {
-  description = "Senet Token Lifetime"
-  type        = number
-  default     = 86400
-}
-
-# Codenames: User Management API
-variable "codenames_scopes" {
-  description = "Codenames Permissions"
-  type        = list(string)
-  default = [
-    "read:clients",
-    "read:connections",
-    "read:roles",
-    "read:users", "create:users", "delete:users",
-    "read:organizations", "create:organizations", "read:organization_members", "create:organization_members",
-    "read:organization_connections", "create:organization_connections", "update:organization_connections",
-    "read:organization_invitations", "create:organization_invitations",
-    "read:organization_member_roles", "create:organization_member_roles"
-  ]
 }
