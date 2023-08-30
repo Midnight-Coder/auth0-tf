@@ -6,10 +6,8 @@ terraform {
     }
   }
 
-  backend "remote" {
-    hostname     = "app.terraform.io"
+   cloud {
     organization = "super-cmo"
-
     workspaces {
       name = "dev"
     }
