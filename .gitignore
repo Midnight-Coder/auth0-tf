@@ -31,3 +31,6 @@ override.tf.json
 
 # ide
 .idea
+
+# system
+.DS_Store

@@ -1,16 +1,16 @@
 terraform {
+  cloud {
+    organization = "super-cmo"
+
+    workspaces {
+      name = "app-dev"
+    }
+  }
+  
   required_providers {
     auth0 = {
       source  = "auth0/auth0"
       version = "0.44.0"
-    }
-  }
-
-  cloud {
-    organization = "headlamp"
-
-    workspaces {
-      name = "headlamp-staging"
     }
   }
 }

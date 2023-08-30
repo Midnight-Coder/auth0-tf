@@ -42,7 +42,7 @@ variable "primary_color" {
 variable "gogo_id_token_expiration" {
   description = "Id Token Expiration Time"
   type        = number
-  default     = 86400
+  default     = 36000
 }
 
 variable "gogo_token_lifetime" {
@@ -54,7 +54,7 @@ variable "gogo_token_lifetime" {
 variable "gogo_idle_token_lifetime" {
   description = "Idle Token Lifetime"
   type        = number
-  default     = 86400
+  default     = 36000
 }
 
 # API-Gateway

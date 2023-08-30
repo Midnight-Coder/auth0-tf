@@ -17,6 +17,7 @@ resource "auth0_client" "gogo-frontend-console" {
   app_type                   = "spa"
   oidc_conformant            = true
   token_endpoint_auth_method = "none"
+  initiate_login_uri         = local.gogo_login_uri
   callbacks                  = local.gogo_callbacks
   allowed_logout_urls        = local.gogo_logouts
   web_origins                = [var.domain]
