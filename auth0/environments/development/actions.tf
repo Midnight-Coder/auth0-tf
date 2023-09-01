@@ -45,13 +45,28 @@ resource "auth0_action" "add-orgs-to-jwt" {
     id      = "post-login"
     version = "v3"
   }
-}
 
+   dependencies {
+    name    = "auth0"
+    version = "3.3.0"
+  }
+  secrets {
+    name  = "domain"
+    value = var.auth0_domain
+  }
+  secrets {
+    name  = "clientId"
+    value = auth0_client.auth0-actions.client_id
+  }
+  secrets {
+    name  = "clientSecret"
+    value = auth0_client.auth0-actions.client_secret
+  }
+}
 resource "auth0_trigger_binding" "post_login_flow" {
   trigger = "post-login"
-
   actions {
     id           = auth0_action.add-orgs-to-jwt.id
     display_name = auth0_action.add-orgs-to-jwt.name
-  }
+  }  
 }
