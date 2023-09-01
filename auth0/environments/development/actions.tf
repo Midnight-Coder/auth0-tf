@@ -1,6 +1,6 @@
 resource "auth0_action" "add-orgs-to-jwt" {
   name    = "Add User's Membership to Organizations ID Token JWT"
-  runtime = "node18"
+  runtime = "node16"
   deploy  = true
   code    = <<-EOT
     /**

@@ -8,7 +8,7 @@ locals {
 }
 
 locals {
-  mogambo_api_identifier = join("", [var.domain, "/api"])
+  mogambo_api_identifier = var.domain
 }
 
 resource "auth0_client" "gogo-frontend-console" {
@@ -66,4 +66,21 @@ resource "auth0_resource_server" "mogambo-resource-server" {
   enforce_policies                                = true
   token_lifetime                                  = var.mogambo_token_lifetime
   token_lifetime_for_web                          = var.mogambo_web_token_lifetime
+}
+
+resource "auth0_client" "auth0-actions" {
+  name            = "Auth0 Actions Application"
+  description     = "Application to provide credentials for Auth0 Actions"
+  app_type        = "non_interactive"
+  oidc_conformant = true
+
+  grant_types = [
+    "client_credentials",
+  ]
+}
+
+resource "auth0_client_grant" "auth0-actions-grant" {
+  client_id = auth0_client.auth0-actions.client_id
+  audience  = var.management_api_identifier
+  scope     = []
 }
