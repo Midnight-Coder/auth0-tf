@@ -68,3 +68,39 @@ variable "mogambo_web_token_lifetime" {
   type        = number
   default     = 86400
 }
+
+# Scopes
+variable "auth0_actions_scopes" {
+  description = "reading perms for auth0 actions"
+  type        = list(string)
+  default     = [
+    "read:organization_connections",
+    "read:organization_invitations",
+    "read:organization_member_roles",
+    "read:organization_members",
+    "read:organizations_summary",
+    "read:organizations",
+    "read:role_members",
+    "read:roles",
+    "read:user_custom_blocks",
+    "read:users_app_metadata",
+    "read:users",
+  ]
+}
+
+variable "management_api_scopes" {
+  description = "perms for management api"
+  type        = list(string)
+  default = [
+    "read:users", "delete:users",
+    "read:clients",
+    "read:connections",
+    "read:roles", "update:roles",
+    "read:role_members", "create:role_members", "delete:role_members",
+    "read:organizations", "create:organizations", "update:organizations",
+    "read:organization_members", "create:organization_members", "delete:organization_members",
+    "read:organization_connections","create:organization_connections", 
+    "read:organization_member_roles", "create:organization_member_roles", "delete:organization_member_roles",
+    "create:organization_invitations"
+  ]
+}
