@@ -7,10 +7,6 @@ locals {
   ]
 }
 
-locals {
-  mogambo_api_identifier = var.domain
-}
-
 resource "auth0_client" "gogo-frontend-console" {
   name                       = "SuperCMO"
   description                = "SuperCMO Frontend Console"
@@ -60,12 +56,24 @@ resource "auth0_client" "mogambo-gateway" {
 
 resource "auth0_resource_server" "mogambo-resource-server" {
   name                                            = "Mogambo Resource Server"
-  identifier                                      = local.mogambo_api_identifier
+  identifier                                      = var.domain
   skip_consent_for_verifiable_first_party_clients = true
   token_dialect                                   = "access_token_authz"
   enforce_policies                                = true
   token_lifetime                                  = var.mogambo_token_lifetime
   token_lifetime_for_web                          = var.mogambo_web_token_lifetime
+}
+
+resource "auth0_client_grant" "gateway-resource-server-grant" {
+  client_id = auth0_client.mogambo-gateway.client_id
+  audience  = var.domain
+  scope     = []
+}
+
+resource "auth0_client_grant" "gateway-management-api-grant" {
+  client_id = auth0_client.mogambo-gateway.client_id
+  audience  = var.management_api_identifier
+  scope     = var.management_api_scopes
 }
 
 resource "auth0_client" "auth0-actions" {
@@ -82,5 +90,5 @@ resource "auth0_client" "auth0-actions" {
 resource "auth0_client_grant" "auth0-actions-grant" {
   client_id = auth0_client.auth0-actions.client_id
   audience  = var.management_api_identifier
-  scope     = []
+  scope     = var.auth0_actions_scopes
 }

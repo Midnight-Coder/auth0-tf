@@ -1,4 +1,3 @@
-### Provider Config
 variable "auth0_domain" {
   description = "Auth0 Application Domain Endpoint"
   type        = string
@@ -99,7 +98,7 @@ variable "management_api_scopes" {
     "read:role_members", "create:role_members", "delete:role_members",
     "read:organizations", "create:organizations", "update:organizations",
     "read:organization_members", "create:organization_members", "delete:organization_members",
-    "read:organization_connections","create:organization_connections", 
+    "read:organization_connections","create:organization_connections",
     "read:organization_member_roles", "create:organization_member_roles", "delete:organization_member_roles",
     "create:organization_invitations"
   ]
