@@ -6,7 +6,7 @@ terraform {
     }
   }
 
-   cloud {
+  cloud {
     organization = "super-cmo"
     workspaces {
       name = "dev"

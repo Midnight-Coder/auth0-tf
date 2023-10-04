@@ -46,7 +46,7 @@ resource "auth0_action" "add-orgs-to-jwt" {
     version = "v3"
   }
 
-   dependencies {
+  dependencies {
     name    = "auth0"
     version = "3.3.0"
   }
@@ -68,5 +68,5 @@ resource "auth0_trigger_binding" "post_login_flow" {
   actions {
     id           = auth0_action.add-orgs-to-jwt.id
     display_name = auth0_action.add-orgs-to-jwt.name
-  }  
+  }
 }
