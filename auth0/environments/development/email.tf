@@ -4,7 +4,7 @@ resource "auth0_email" "sendgrid_email_provider" {
   default_from_address = "hello@supercmo.ai"
 
   credentials {
-    api_key     = var.sengrid_key
+    api_key = var.sengrid_key
   }
 }
 
@@ -13,13 +13,13 @@ resource "auth0_email_template" "user_invite_template" {
 
   template                = "user_invitation"
   from                    = "hello@supercmo.ai"
-  result_url              =  join("", [var.domain, "/auth/login"])
+  result_url              = join("", [var.domain, "/auth/login"])
   subject                 = "You are being invited to SuperCMO"
   syntax                  = "liquid"
   url_lifetime_in_seconds = 86400
   enabled                 = true
 
-  body                    = <<-EOT
+  body = <<-EOT
 <html>
   <head>
     <style type="text/css">
