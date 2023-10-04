@@ -9,11 +9,11 @@ resource "auth0_email" "sendgrid_email_provider" {
 }
 
 resource "auth0_email_template" "user_invite_template" {
-  depends_on = [auth0_email.my_email_provider]
+  depends_on = [auth0_email.sendgrid_email_provider]
 
   template                = "user_invitation"
   from                    = "hello@supercmo.ai"
-  result_url              = var.domain +"/auth/login"
+  result_url              =  join("", [var.domain, "/auth/login"])
   subject                 = "You are being invited to SuperCMO"
   syntax                  = "liquid"
   url_lifetime_in_seconds = 86400
@@ -50,7 +50,7 @@ resource "auth0_email_template" "user_invite_template" {
                 style="text-align: center;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%; margin-bottom: 30px;"
               >
                 <img
-                  src=var.logo_uri
+                  src={{ application.logo_uri }}
                   width="350"
                   alt="Super CMO"
                   style="-ms-interpolation-mode: bicubic;border: 0;height: auto;line-height: 100%;outline: none;text-decoration: none;"

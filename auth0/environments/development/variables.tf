@@ -32,6 +32,12 @@ variable "logo_uri" {
   type        = string
 }
 
+# Emails
+variable "sengrid_key" {
+  description = "Sendgrid API Key"
+  type = string
+}
+
 variable "primary_color" {
   description = "Primary Brand Color"
   type        = string
