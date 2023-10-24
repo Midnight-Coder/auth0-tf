@@ -1,3 +1,4 @@
+### Provider Config
 variable "auth0_domain" {
   description = "Auth0 Application Domain Endpoint"
   type        = string
