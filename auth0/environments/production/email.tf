@@ -57,43 +57,27 @@ resource "auth0_email_template" "user_invite_template" {
                 />
               </p>
 
-              <p style="font-size: 20px;line-height: 60ps; padding:0 20px; margin:0">
-                {{ inviter.name }} has invited you to join their organization, {{ friendly_name }}.
+              <p style="font-size: 20px; padding:0 20px; margin:0">
+                Hey There 👋, {{ inviter.name }} is using SuperCMO’s Generative AI Engine to turbocharge ads for <strong>{{ organization.display_name }}</strong>.
               </p>
-
-              <p style="text-align: left;font-weight: 500;font-size: 18px; padding: 0 0 25px">
-                Your account information:
+              <p style="font-size: 14px; padding:0 20px; margin:5px">
+                They have invited you to join their organization on SuperCMO.
+                Click on Accept Invitation below to accept the invite or copy-paste the URL into your browser.
               </p>
-
-              <table>
-                <tr>
-                  <td style="width:30%; text-align: left;"><strong style="font-weight: 500;">Account</strong></td>
-                  <td style="width:70%; text-align: left;">{{ user.email }}</td>
-                </tr>
-                <tr>
-                  <td style="width:30%; text-align: left;">
-                    <strong style="font-weight: 500;">Organization</strong>
-                  </td>
-                  <td style="width:70%; text-align: left;">{{ organization.name }}</td>
-                </tr>
-                <tr>
-                  <td style="width:30%; text-align: left;">
-                    <strong style="font-weight: 500;">Invitation Link</strong>
-                  </td>
-                  <td style="width:70%; text-align: left;">
-                    <a href="{{ url | escape }}" style="color:#0a84ae; text-decoration:none">{{ url | escape }}</a>
-                  </td>
-                </tr>
-              </table>
-
-              <p><a href="{{ url }}">ACCEPT INVITATION</a></p>
-
+              <p style="margin-top: 3rem">
+                <a href="{{ url }}" style="text-decoration:none; background-color: #9c27b0; color: #ffffff; padding: 12px 16px; box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px">
+                ACCEPT INVITATION
+                </a>
+              </p>
+              <p style="margin-top: 2rem; font-weight: 500; font-size: 14px;">
+                <span><strong>Invitation Link:&nbsp;</strong></span>
+                <a href="{{ url | escape }}" style="color:#0a84ae; text-decoration:none">{{ url | escape }}</a>
+              </p>
               <br /><br />
               <hr style="border: 2px solid #EAEEF3; border-bottom: 0; margin: 20px 0;" />
               <p style="text-align: center;color: #A9B3BC;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;">
-                If you are not sure why you’re receiving this, please contact us{% if support_url %} through our
-                <a href="{{ support_url | escape }}" style="color:#0a84ae;text-decoration:none">Support Center</a>{%
-                endif %}.
+                If you are not sure why you’re receiving this, please contact us at
+                <a href="mailto:{{ support_email }}" style="color:#0a84ae;text-decoration:none">{{ support_email }}</a>
               </p>
             </div>
           </td>

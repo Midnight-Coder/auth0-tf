@@ -33,6 +33,12 @@ variable "logo_uri" {
   type        = string
 }
 
+# Emails
+variable "sengrid_key" {
+  description = "Sendgrid API Key"
+  type        = string
+}
+
 variable "primary_color" {
   description = "Primary Brand Color"
   type        = string
@@ -101,6 +107,6 @@ variable "management_api_scopes" {
     "read:organization_members", "create:organization_members", "delete:organization_members",
     "read:organization_connections","create:organization_connections",
     "read:organization_member_roles", "create:organization_member_roles", "delete:organization_member_roles",
-    "create:organization_invitations"
+    "create:organization_invitations, read:organization_invitations"
   ]
 }

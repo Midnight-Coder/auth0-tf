@@ -27,7 +27,8 @@ resource "auth0_client" "gogo-frontend-console" {
     "authorization_code",
   ]
 
-  organization_usage = "deny"
+  organization_usage = "allow"
+  organization_require_behavior = "no_prompt"
 
   refresh_token {
     expiration_type              = "expiring"
