@@ -79,12 +79,10 @@ resource "auth0_action" "invite-user-to-flow" {
   code    = <<-EOT
   const AuthClient = require('auth0').ManagementClient;
   const https = require('https');
-  const BASE_URL_HOST = "${var.host}";
 
   const makePostAPICall = (data, endpoint, accessToken) => {
       return new Promise((resolve, reject) => {
           const options = {
-              hostname: BASE_URL_HOST,
               path: endpoint,
               method: 'POST',
               headers: {
@@ -93,7 +91,7 @@ resource "auth0_action" "invite-user-to-flow" {
               },
           };
 
-          const req = https.request(options, (res) => {
+          const req = https.request(new URL("${var.domain}"), options, (res) => {
               let responseData = '';
 
               res.on('data', (chunk) => {
