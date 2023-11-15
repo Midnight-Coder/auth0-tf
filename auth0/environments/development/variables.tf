@@ -89,8 +89,8 @@ variable "auth0_actions_scopes" {
     "read:role_members",
     "read:roles",
     "read:user_custom_blocks",
-    "read:users_app_metadata",
-    "read:users",
+    "read:users_app_metadata", "update:users_app_metadata",
+    "read:users", "update:users", 
   ]
 }
 
@@ -98,7 +98,8 @@ variable "management_api_scopes" {
   description = "perms for management api"
   type        = list(string)
   default = [
-    "read:users", "delete:users",
+    "read:users", "delete:users", "update:users",
+    "read:users_app_metadata", "update:users_app_metadata", "create:users_app_metadata",
     "read:clients",
     "read:connections",
     "read:roles", "update:roles",
