@@ -26,6 +26,11 @@ variable "domain" {
   type        = string
 }
 
+variable "host" {
+  description = "host Address (e.g. app.supercmo.com)"
+  type        = string
+}
+
 # Branding
 variable "logo_uri" {
   description = "Logo URI"
