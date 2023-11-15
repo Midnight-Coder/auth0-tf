@@ -4,8 +4,42 @@ resource "auth0_action" "setup-user" {
   deploy  = true
   code    = <<-EOT
   const AuthClient = require('auth0').ManagementClient;
-  const axios = require('axios');
-  const BASE_URL = 'https://app-dev.supercmo.ai';
+  const https = require('https');
+  const BASE_URL_HOST = 'app-dev.supercmo.ai';
+
+  const makePostAPICall = (data, endpoint, accessToken) => {
+      return new Promise((resolve, reject) => {
+          const options = {
+              hostname: BASE_URL_HOST,
+              path: endpoint,
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${accessToken}`
+              },
+          };
+
+          const req = https.request(options, (res) => {
+              let responseData = '';
+
+              res.on('data', (chunk) => {
+                  responseData += chunk;
+              });
+
+              res.on('end', () => {
+                  resolve(responseData);
+              });
+          });
+
+          req.on('error', (error) => {
+              reject(`Error making the request: ${error.message}`);
+          });
+
+          req.write(JSON.stringify(data));
+
+          req.end();
+      })
+  }
 
   exports.onExecutePostLogin = async (event) => {
     const management = new AuthClient({
@@ -39,16 +73,11 @@ resource "auth0_action" "setup-user" {
           organization: orgDetails
         };
         try {
-          await axios.post(`${BASE_URL}/api/v1/users/organizations/association`, data, {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${accessToken}`,
-            }
-          });
+          await makePostAPICall(data, '/api/v1/users/organizations/association', accessToken);
         } catch {}
       }
     }
-  };  
+  }; 
   EOT
 
   supported_triggers {
@@ -59,10 +88,6 @@ resource "auth0_action" "setup-user" {
   dependencies {
     name    = "auth0"
     version = "3.3.0"
-  }
-  dependencies {
-    name    = "axios"
-    version = "1.6.1"
   }
   secrets {
     name  = "domain"
