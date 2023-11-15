@@ -115,6 +115,7 @@ resource "auth0_action" "invite-user-to-flow" {
       })
   }
 
+  const userOrgAssociationEndPoint = '/api/v1/users/organizations/association';
   exports.onExecutePostLogin = async (event) => {
     const management = new AuthClient({
       domain: event.secrets.domain,
@@ -125,7 +126,8 @@ resource "auth0_action" "invite-user-to-flow" {
     let orgs = [];
     try {
       orgs = await management.users.getUserOrganizations({ id: event.user.user_id });
-    } catch {
+    } catch(e) {
+      console.error(e.message)
       orgs = [];
     }
     const accessToken = await management.getAccessToken();
@@ -147,8 +149,10 @@ resource "auth0_action" "invite-user-to-flow" {
           organization: orgDetails
         };
         try {
-          await makePostAPICall(data, '/api/v1/users/organizations/association', accessToken);
-        } catch {}
+          await makePostAPICall(data, userOrgAssociationEndPoint, accessToken);
+        } catch(e) {
+          console.error(e.message);
+        }
       }
     }
   }; 
