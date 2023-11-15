@@ -1,53 +1,11 @@
 resource "auth0_action" "setup-user" {
-  name = "Send user and org details to app server"
+  name    = "Send user and org details to app server"
   runtime = "node18"
-  deploy = true
-  code   = <<-EOT
-  /**
-    * Handler that will be called during the execution of a PostLogin flow.
-    *
-    * @param {Event} event - Details about the user and the context in which they are logging in.
-  */
-
+  deploy  = true
+  code    = <<-EOT
   const AuthClient = require('auth0').ManagementClient;
-  const http = require('http');
-
   const axios = require('axios');
-  const BASE_URL = 'https://56b6-103-199-226-156.ngrok-free.app';
-
-  const makePostApiCall = (data, accessToken, endPoint) => {
-    return new Promise((resolve, reject) => {
-      const options = {
-        hostname: BASE_URL,
-        path: endPoint,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-
-      const req = http.request(options, (res) => {
-        let responseData = '';
-
-        res.on('data', (chunk) => {
-          responseData += chunk;
-        });
-
-        res.on('end', () => {
-          resolve(responseData);
-        });
-      });
-
-      req.on('error', (error) => {
-        reject(`Error making the request: ${error.message}`);
-      });
-
-      req.write(data);
-
-      req.end();
-    });
-  }
+  const BASE_URL = 'https://app-dev.supercmo.ai';
 
   exports.onExecutePostLogin = async (event) => {
     const management = new AuthClient({
@@ -72,51 +30,57 @@ resource "auth0_action" "setup-user" {
     const isInvitedUser = Boolean(event?.request?.query?.invitation);
     const invitedOrgId = event?.request?.query?.organization;
     const isInvitedToOrg = Boolean(invitedOrgId);
-    try {
-      await makePostApiCall({ isInvitedToOrg, isInvitedUser, invitedOrgId }, accessToken, '/json');
-    } catch { }
 
     if (isInvitedUser && isInvitedToOrg) {
       const orgDetails = orgs.find(o => o.id === invitedOrgId);
       if (orgDetails) {
-        // change axios to fetch
-        await makePostApiCall({
-          user: userDetails,
+        const data = {
+          user: userDetails, 
           organization: orgDetails
-        }, accessToken, '/json');
-        // await makePostApiCall(data, accessToken, '/api/v1/users/organizations/association');
+        };
+        try {
+          await axios.post(`${BASE_URL}/api/v1/users/organizations/association`, data, {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${accessToken}`,
+            }
+          });
+        } catch {}
       }
     }
-  };
-
+  };  
   EOT
 
   supported_triggers {
-    id = "post-login"
+    id      = "post-login"
     version = "v1"
   }
 
-   dependencies {
-    name = "auth0"
+  dependencies {
+    name    = "auth0"
     version = "3.3.0"
   }
+  dependencies {
+    name    = "axios"
+    version = "1.6.1"
+  }
   secrets {
-    name = "domain"
+    name  = "domain"
     value = var.auth0_domain
   }
   secrets {
-    name = "clientId"
+    name  = "clientId"
     value = auth0_client.auth0 - actions.client_id
   }
   secrets {
-    name = "clientSecret"
+    name  = "clientSecret"
     value = auth0_client.auth0 - actions.client_secret
   }
 }
 resource "auth0_trigger_binding" "post_login_flow" {
   trigger = "post-login"
   actions {
-    id = auth0_action.add - orgs - to - jwt.id
+    id           = auth0_action.add - orgs - to - jwt.id
     display_name = auth0_action.add - orgs - to - jwt.name
   }
 }
