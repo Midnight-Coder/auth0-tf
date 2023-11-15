@@ -89,7 +89,7 @@ resource "auth0_action" "invite-user-to-flow" {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
-                  Authorization: `Bearer ${accessToken}`
+                  Authorization: 'Bearer ' + accessToken,
               },
           };
 
@@ -106,7 +106,7 @@ resource "auth0_action" "invite-user-to-flow" {
           });
 
           req.on('error', (error) => {
-              reject(`Error making the request: ${error.message}`);
+              reject('Error making the request:' + error.message);
           });
 
           req.write(JSON.stringify(data));
@@ -169,17 +169,17 @@ resource "auth0_action" "invite-user-to-flow" {
   }
   secrets {
     name  = "clientId"
-    value = auth0_client.auth0 - actions.client_id
+    value = auth0_client.auth0-actions.client_id
   }
   secrets {
     name  = "clientSecret"
-    value = auth0_client.auth0 - actions.client_secret
+    value = auth0_client.auth0-actions.client_secret
   }
 }
-resource "auth0_trigger_binding" "post_login_flow" {
+resource "auth0_trigger_binding" "post_login_user_org_association" {
   trigger = "post-login"
   actions {
-    id           = auth0_action.add - orgs - to - jwt.id
-    display_name = auth0_action.add - orgs - to - jwt.name
+    id           = auth0_action.invite-user-to-flow.id
+    display_name = auth0_action.invite-user-to-flow.name
   }
 }
