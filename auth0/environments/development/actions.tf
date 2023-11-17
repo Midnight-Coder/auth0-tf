@@ -63,14 +63,6 @@ resource "auth0_action" "add-orgs-to-jwt" {
     value = auth0_client.auth0-actions.client_secret
   }
 }
-resource "auth0_trigger_binding" "post_login_flow" {
-  trigger = "post-login"
-  actions {
-    id           = auth0_action.add-orgs-to-jwt.id
-    display_name = auth0_action.add-orgs-to-jwt.name
-  }
-}
-
 
 resource "auth0_action" "invite-user-to-flow" {
   name    = "Send user and org details to app server"
@@ -180,6 +172,10 @@ resource "auth0_action" "invite-user-to-flow" {
 }
 resource "auth0_trigger_binding" "post_login_user_org_association" {
   trigger = "post-login"
+  actions {
+    id           = auth0_action.add-orgs-to-jwt.id
+    display_name = auth0_action.add-orgs-to-jwt.name
+  }
   actions {
     id           = auth0_action.invite-user-to-flow.id
     display_name = auth0_action.invite-user-to-flow.name
