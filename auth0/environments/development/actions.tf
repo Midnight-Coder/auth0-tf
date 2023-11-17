@@ -64,8 +64,8 @@ resource "auth0_action" "add-orgs-to-jwt" {
   }
 }
 
-resource "auth0_action" "invite-user-to-flow" {
-  name    = "Send user and org details to app server"
+resource "auth0_action" "save-invited-user-detail" {
+  name    = "On Register Save Invited User Detail"
   runtime = "node18"
   deploy  = true
   code    = <<-EOT
@@ -135,7 +135,7 @@ resource "auth0_action" "invite-user-to-flow" {
       const orgDetails = orgs.find(o => o.id === invitedOrgId);
       if (orgDetails) {
         const data = {
-          user: userDetails, 
+          user: userDetails,
           organization: orgDetails
         };
         try {
@@ -145,12 +145,12 @@ resource "auth0_action" "invite-user-to-flow" {
         }
       }
     }
-  }; 
+  };
   EOT
 
   supported_triggers {
     id      = "post-login"
-    version = "v1"
+    version = "v3"
   }
 
   dependencies {
@@ -170,14 +170,14 @@ resource "auth0_action" "invite-user-to-flow" {
     value = auth0_client.auth0-actions.client_secret
   }
 }
-resource "auth0_trigger_binding" "post_login_user_org_association" {
+resource "auth0_trigger_binding" "post_login_save_invited_user_detail" {
   trigger = "post-login"
   actions {
     id           = auth0_action.add-orgs-to-jwt.id
     display_name = auth0_action.add-orgs-to-jwt.name
   }
   actions {
-    id           = auth0_action.invite-user-to-flow.id
-    display_name = auth0_action.invite-user-to-flow.name
+    id           = auth0_action.save-invited-user-detail.id
+    display_name = auth0_action.save-invited-user-detail.name
   }
 }
