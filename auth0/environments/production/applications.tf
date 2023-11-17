@@ -16,7 +16,6 @@ resource "auth0_client" "gogo-frontend-console" {
   initiate_login_uri         = local.gogo_login_uri
   callbacks                  = local.gogo_callbacks
   allowed_logout_urls        = local.gogo_logouts
-  initiate_login_uri         = local.gogo_login_uri
   web_origins                = [var.domain]
   custom_login_page_on       = false
   logo_uri                   = var.logo_uri
