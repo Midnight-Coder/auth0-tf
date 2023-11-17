@@ -63,14 +63,6 @@ resource "auth0_action" "add-orgs-to-jwt" {
     value = auth0_client.auth0-actions.client_secret
   }
 }
-resource "auth0_trigger_binding" "post_login_flow" {
-  trigger = "post-login"
-  actions {
-    id           = auth0_action.add-orgs-to-jwt.id
-    display_name = auth0_action.add-orgs-to-jwt.name
-  }
-}
-
 
 resource "auth0_action" "save-invited-user-detail" {
   name    = "On Register Save Invited User Detail"
@@ -180,6 +172,10 @@ resource "auth0_action" "save-invited-user-detail" {
 }
 resource "auth0_trigger_binding" "post_login_save_invited_user_detail" {
   trigger = "post-login"
+  actions {
+    id           = auth0_action.add-orgs-to-jwt.id
+    display_name = auth0_action.add-orgs-to-jwt.name
+  }
   actions {
     id           = auth0_action.save-invited-user-detail.id
     display_name = auth0_action.save-invited-user-detail.name
