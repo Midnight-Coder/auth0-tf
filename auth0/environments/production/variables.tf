@@ -1,3 +1,4 @@
+### Provider Config
 variable "auth0_domain" {
   description = "Auth0 Application Domain Endpoint"
   type        = string
@@ -88,8 +89,8 @@ variable "auth0_actions_scopes" {
     "read:role_members",
     "read:roles",
     "read:user_custom_blocks",
-    "read:users_app_metadata",
-    "read:users",
+    "read:users_app_metadata", "update:users_app_metadata",
+    "read:users", "update:users", 
   ]
 }
 
@@ -97,7 +98,8 @@ variable "management_api_scopes" {
   description = "perms for management api"
   type        = list(string)
   default = [
-    "read:users", "delete:users",
+    "read:users", "delete:users", "update:users",
+    "read:users_app_metadata", "update:users_app_metadata", "create:users_app_metadata",
     "read:clients",
     "read:connections",
     "read:roles", "update:roles",
@@ -106,6 +108,6 @@ variable "management_api_scopes" {
     "read:organization_members", "create:organization_members", "delete:organization_members",
     "read:organization_connections", "create:organization_connections",
     "read:organization_member_roles", "create:organization_member_roles", "delete:organization_member_roles",
-    "create:organization_invitations, read:organization_invitations"
+    "create:organization_invitations", "read:organization_invitations"
   ]
 }
