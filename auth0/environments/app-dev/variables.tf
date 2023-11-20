@@ -79,7 +79,7 @@ variable "mogambo_web_token_lifetime" {
 variable "auth0_actions_scopes" {
   description = "reading perms for auth0 actions"
   type        = list(string)
-  default     = [
+  default = [
     "read:organization_connections",
     "read:organization_invitations",
     "read:organization_member_roles",
@@ -89,8 +89,8 @@ variable "auth0_actions_scopes" {
     "read:role_members",
     "read:roles",
     "read:user_custom_blocks",
-    "read:users_app_metadata",
-    "read:users",
+    "read:users_app_metadata", "update:users_app_metadata",
+    "read:users", "update:users", 
   ]
 }
 
@@ -98,15 +98,16 @@ variable "management_api_scopes" {
   description = "perms for management api"
   type        = list(string)
   default = [
-    "read:users", "delete:users",
+    "read:users", "delete:users", "update:users",
+    "read:users_app_metadata", "update:users_app_metadata", "create:users_app_metadata",
     "read:clients",
     "read:connections",
     "read:roles", "update:roles",
     "read:role_members", "create:role_members", "delete:role_members",
     "read:organizations", "create:organizations", "update:organizations",
     "read:organization_members", "create:organization_members", "delete:organization_members",
-    "read:organization_connections","create:organization_connections",
+    "read:organization_connections", "create:organization_connections",
     "read:organization_member_roles", "create:organization_member_roles", "delete:organization_member_roles",
-    "create:organization_invitations, read:organization_invitations"
+    "create:organization_invitations", "read:organization_invitations"
   ]
 }
