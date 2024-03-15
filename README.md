@@ -1,2 +1,2 @@
 # bulla
-Terraform repository to programmatically setup systems.
+Terraform repository to programmatically setup supercmo systems.
