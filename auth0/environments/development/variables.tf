@@ -125,5 +125,5 @@ variable "allowed_emails_allowlist" {
 variable "allowed_clients_allowlist" {
   description = "Applications that rely on SuperCMO SSO"
   type    = list(string)
-  default = []
+  default = ["SuperCMO"]
 }
