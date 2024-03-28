@@ -170,8 +170,50 @@ resource "auth0_action" "save-invited-user-detail" {
     value = auth0_client.auth0-actions.client_secret
   }
 }
+
+resource "auth0_action" "email_allowlist" {
+  name    = "Email Allowlist"
+  runtime = "node18"
+  deploy  = true
+  code    = <<-EOT
+/**
+* Handler that will be called during the execution of a PostLogin flow.
+*
+* @param {Event} event - Details about the user and the context in which they are logging in.
+* @param {PostLoginAPI} api - Interface whose methods can be used to change the behavior of the login.
+*/
+const allowedOrganizations = ${jsonencode(var.allowed_domains_allowlist)}
+const allowedEmails = ${jsonencode(var.allowed_emails_allowlist)}
+const allowedClients = ${jsonencode(var.allowed_clients_allowlist)}
+
+exports.onExecutePostLogin = async (event, api) => {
+  if(!event.user.email) {
+    api.access.deny("Access Denied: Missing Email. This is likely a misconfiguration with your workspace connection");
+  }
+  else if(!allowedClients.includes(event.client.name)){
+    api.access.deny(`Access Denied: Unsupported client $${event.client.name}`);
+  }
+
+  if (!allowedOrganizations.some(i => event.user.email.endsWith(i)) && !allowedEmails.includes(event.user.email)) {
+    api.access.deny(`Access Denied: Not a supported organization. Contact us at support@supercmo.ai`);
+  }
+};
+
+  EOT
+
+  supported_triggers {
+    id      = "post-login"
+    version = "v3"
+  }
+}
+
 resource "auth0_trigger_binding" "post_login_save_invited_user_detail" {
   trigger = "post-login"
+
+  actions {
+    id           = auth0_action.email_allowlist.id
+    display_name = auth0_action.email_allowlist.name
+  }
   actions {
     id           = auth0_action.add-orgs-to-jwt.id
     display_name = auth0_action.add-orgs-to-jwt.name
