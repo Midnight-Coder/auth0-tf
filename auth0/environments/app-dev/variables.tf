@@ -111,3 +111,19 @@ variable "management_api_scopes" {
     "create:organization_invitations", "read:organization_invitations"
   ]
 }
+
+# Auth0 Actions
+variable "allowed_domains_allowlist" {
+  type    = list(string)
+  default = ["@gmail.com", "@superset.com", "@supercmo.ai", "@velotio.com"]
+}
+variable "allowed_emails_allowlist" {
+  type    = list(string)
+  default = []
+}
+
+variable "allowed_clients_allowlist" {
+  description = "Applications that rely on SuperCMO SSO"
+  type    = list(string)
+  default = ["SuperCMO"]
+}
