@@ -193,7 +193,7 @@ exports.onExecutePostLogin = async (event, api) => {
   else if(!allowedClients.includes(event.client.name)){
     api.access.deny(`Access Denied: Unsupported client $${event.client.name}`);
   }
-  
+
   if (!allowedOrganizations.some(i => event.user.email.endsWith(i)) && !allowedEmails.includes(event.user.email)) {
     api.access.deny(`Access Denied: Not a supported organization. Contact us at support@supercmo.ai`);
   }
